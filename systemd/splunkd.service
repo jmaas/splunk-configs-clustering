@@ -19,7 +19,6 @@ LimitNOFILE=64000
 Environment="SPLUNK_HOME=/opt/splunk"
 ExecStart=/opt/splunk/bin/splunk start --accept-license --answer-yes --no-prompt
 ExecStop=/opt/splunk/bin/splunk stop
-ExecRestart=/opt/splunk/bin/splunk restart
 PIDFile=/opt/splunk/var/run/splunk/splunkd.pid
 Restart=always
 RestartSec=1
