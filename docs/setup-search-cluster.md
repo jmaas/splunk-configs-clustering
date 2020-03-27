@@ -10,6 +10,7 @@ Steps:
 2. Setup Cluster Members
 3. Setup Cluster Captain
 4. Check Cluster Status
+5. Connecting To Indexer Cluster
 
 
 Setup Deployer
@@ -33,7 +34,7 @@ After applying the settings you need to restart Splunk:
 
 Setup Cluster Members
 ---------------------
-This step should be performed on all search heads as refered to `splunk-shN` in the reference architecture.
+This step should be performed on all search heads as refered to as `splunk-shN` in the reference architecture.
 
 Configure each search head to be a cluster member using the following `/opt/splunk/etc/system/local/server.conf` settings:
 ```
@@ -68,3 +69,26 @@ Some useful commands to verify the health and/or configuration of the search hea
 - cluster status: `splunk show shcluster-status`
 - cluster members: `splunk list shcluster-members`
 - kv store status: `splunk show kvstore-status`
+
+
+Connecting To Indexer Cluster
+-----------------------------
+The final step is to have all the search head cluster members connect to the index cluster so that we can actually start searching.
+This step should be performed on all search heads as refered to as `splunk-shN` in the reference architecture.
+
+Important:
+- The password (pass4SymmKey or -secret) should correspond with the password used for setting up the indexer cluster.
+
+Configure each search head cluster member to connect to the indexer cluster using the following `/opt/splunk/etc/system/local/server.conf` settings:
+```
+[clustering]
+master_uri = https://splunk-mgt:8089
+mode = searchhead
+pass4SymmKey = whatever
+```
+
+Alternatively you can use the CLI to connect to the indexer cluster:
+`splunk edit cluster-config -mode searchhead -master_uri https://splunk-mgt:8089 -secret whatever`
+
+After applying the settings you need to restart Splunk:
+`systemctl restart splunkd` or `/etc/init.d/splunk restart`
