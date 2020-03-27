@@ -86,7 +86,7 @@ These apps are installed on the `cluster master` in `/opt/splunk/etc/master-apps
 
 Search-head Apps
 ----------------
-The search-head apps are installed on the `deployer` in /opt/splunk/etc/shcluster/apps` and pushed to all search-heads.
+The search head apps are installed on the `deployer` in `/opt/splunk/etc/shcluster/apps` and pushed to all search-heads.
 
 - `xxx`:
 
