@@ -11,6 +11,7 @@ References:
 Steps:
 1. [Enable Cluster Master](https://docs.splunk.com/Documentation/Splunk/8.0.2/Indexer/Enablethemasternode)
 2. [Enable Peer Nodes](https://docs.splunk.com/Documentation/Splunk/8.0.2/Indexer/Enablethepeernodes)
+3. Verify Status
 
 
 Enable Cluster Master
@@ -60,3 +61,12 @@ Alternatively you can use the CLI to setup the peer nodes (indexers):
 
 After applying the settings you need to restart Splunk:
 `systemctl restart splunkd` or `/etc/init.d/splunk restart`
+
+
+Verify Status
+-------------
+Some useful commands to verify the health and/or configuration of the indexer cluster:
+- splunk cluster commands: `splunk help cluster`
+- cluster health: `splunk show cluster-status`
+- list cluster peers: `splunk list cluster-peers`
+- cluster configuration: `splunk list cluster-config`
