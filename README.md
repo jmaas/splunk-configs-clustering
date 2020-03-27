@@ -81,7 +81,7 @@ Master apps
 -----------
 These apps are installed on the `cluster master` in `/opt/splunk/etc/master-apps` and pushed to all indexers.
 
-- `cfg_indexers`, configured: splunk-web, license master, inputs, volumes and indexes
+- `cfg_indexers`, configures: splunk-web, license master, inputs, volumes and indexes
 
 
 Search-head Apps
