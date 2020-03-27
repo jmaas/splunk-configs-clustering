@@ -65,5 +65,5 @@ Select *one* of the initialized instances to be the cluster captain. It does not
 Check Cluster Status
 --------------------
 Some useful commands to verify the health and/or configuration of the search head cluster:
-- cluster status: `splunk show shcluster-status -auth <username>:<password>`
+- cluster status: `splunk show shcluster-status`
 - kv store status: `splunk show kvstore-status`
