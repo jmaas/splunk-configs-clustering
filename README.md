@@ -20,7 +20,8 @@ The references to the hostnames should be replaced with the equivalents in your 
 
 Manual Installation
 ===================
-Repeat all steps for every Splunk instances in your architecture.
+Repeat all steps for every Splunk instance type in your architecture except for the Universal
+Forwarder instance (`splunk-ufN)`.
 
 Splunk Enterprise
 -----------------
