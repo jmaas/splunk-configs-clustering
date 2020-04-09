@@ -82,7 +82,7 @@ Master apps
 -----------
 These apps are installed on the `cluster master` in `/opt/splunk/etc/master-apps` and pushed to all indexers.
 
-- `cfg_indexers`, configures: splunk-web, license master, inputs, volumes and indexes
+- `base_config_indexers`, configures: splunk-web, license master, inputs, volumes and indexes
 
 
 Search-head Apps
@@ -95,9 +95,9 @@ Deployment apps
 ---------------
 Deployment apps are pushed by the deployment server to the forwarders.
  
-- `xxx`:
+- `base_config_forwarders`:
 
 Notes
 =====
-Instructions for the most common tasks are provided in the `docs/` directory.
+Instructions for the most common tasks are provided in the `notes/` directory.
 
