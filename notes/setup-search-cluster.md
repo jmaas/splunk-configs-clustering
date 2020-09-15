@@ -2,7 +2,8 @@ Setup Search Head Clustering
 ============================
 
 References:
-- [Search Head Cluster Deployment Overview](https://docs.splunk.com/Documentation/Splunk/8.0.2/DistSearch/SHCdeploymentoverview)
+- [Deploy a single-member search head cluster](https://docs.splunk.com/Documentation/Splunk/8.0.5/DistSearch/DeploysinglememberSHC)
+- [Search Head Cluster Deployment Overview](https://docs.splunk.com/Documentation/Splunk/8.0.6/DistSearch/SHCdeploymentoverview)
 
 
 Steps:
@@ -45,12 +46,14 @@ conf_deploy_fetch_url = https://splunk-mgt:8089
 disabled = 0
 mgmt_uri = https://splunk-sh1:8089
 pass4SymmKey = whatever
-replication_factor = 2
+replication_factor = 1
 shcluster_label = shcluster1
 ```
 
 Alternatively you can use the CLI to configure the search head cluster member:
-`splunk init shcluster-config -auth admin:password -mgmt_uri https://splunk-shN:8089 -replication_port 34567 -replication_factor 2 -conf_deploy_fetch_url https://splunk-mgt:8089 -secret whatever -shcluster_label shcluster1`
+`splunk init shcluster-config -auth admin:password -mgmt_uri https://splunk-shN:8089 -replication_port 34567 -replication_factor 1 -conf_deploy_fetch_url https://splunk-mgt:8089 -secret whatever -shcluster_label shcluster1`
+
+The above examples are for a single-node search head cluster, if you have more (at least 3) you should bump the replication_factor to at least 2 as well as configure a cluster Captain.
 
 After applying the settings you need to restart Splunk:
 `systemctl restart splunkd` or `/etc/init.d/splunk restart`
@@ -58,6 +61,8 @@ After applying the settings you need to restart Splunk:
 
 Setup Cluster Captain
 ---------------------
+This section is not applicable for a single-node search head cluster.
+
 Select *one* of the initialized instances to be the cluster captain. It does not matter which instance you select for this role, but in this example the `splunk-sh1` will be used.
 
 `splunk bootstrap shcluster-captain -servers_list "https://splunk-sh1:8089,https://splunk-sh2:8089,https://splunk-sh3:8089,https://splunk-shN:8089" -auth admin:password`
