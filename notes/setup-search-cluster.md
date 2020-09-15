@@ -45,6 +45,11 @@ mgmt_uri = https://splunk-sh1:8089
 pass4SymmKey = whatever
 replication_factor = 1
 shcluster_label = shcluster1
+# use the following settings only if you have a single-node SHC
+dynamic_election = 0
+captain_uri = https://splunk-sh1:8089
+election = 0
+mode = captain
 ```
 
 Alternatively you can use the CLI to configure the search head cluster member:
