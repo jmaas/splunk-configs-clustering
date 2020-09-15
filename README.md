@@ -1,16 +1,15 @@
 
 This repository contains several basic configuration files required
-by recent Splunk versions. Version used for testing is Splunk 8.0.2.1
+by recent Splunk versions. Version used for testing is Splunk 8.0.6.
 The instructions and files included in this repository allow you to 
 set-up a clustered environment relatively easy.
 
-Reference Architecture
-======================
+# Reference Architecture
 This repository is based on an architecture I have running in my home lab.
 The references to the hostnames should be replaced with the equivalents in your environment.
 
-- 3x indexers (`splunk-idxN`)
-- 3x search head (`splunk-shN`)
+- 3x indexers cluster (`splunk-idxN`)
+- 1x single-node cluster search head (`splunk-shN`)
 - 1x universal forwarder (`splunk-ufN`)
 - 1x management server (`splunk-mgt`) with roles:
 	- license master
@@ -18,20 +17,18 @@ The references to the hostnames should be replaced with the equivalents in your 
 	- monitoring console
 	- deployer
 
-Manual Installation
-===================
-Repeat all steps for every Splunk instance type in your architecture except for the Universal
-Forwarder instance (`splunk-ufN)`.
+# Manual Installation
+Repeat all steps for every Splunk instance type in your architecture except for the Universal Forwarder instance (`splunk-ufN`).
 
-Splunk Enterprise
------------------
+## Splunk Enterprise
 - install Splunk Enterprise using the package (rpm, deb, tgz) that best fits your environment
 - switch to splunk user `sudo su - splunk` (when using tgz create user/group manually first)
 - accept license and setup the admin account `$SPLUNK_HOME/bin/splunk start --accept-license` 
 - stop splunk `$SPLUNK_HOME/bin/splunk stop`
 
-Systemd based systems
----------------------
+## Operating System
+
+### Systemd based systems
 - copy `systemd/disable-thp.service` over to `/etc/systemd/system/`
 - copy `systemd/splunkd.service` over to `/etc/systemd/system/`
 - make sure you don't `enable boot-start`, just to be sure `rm -f /etc/init.d/splunk`
@@ -40,15 +37,13 @@ Systemd based systems
 - enable the splunkd service `systemctl enable splunkd.service`
 - start splunk `systemctl start splunkd.service`
 
-Sysvinit based systems
-----------------------
+### Sysvinit based systems
 - copy `sysvinit/99-splunk.conf` over to `/etc/security/limits.d/`
 - disable THP `echo sysvinit/rc.local >> /etc/rc.local`
 - start splunk on boot `/opt/splunk/bin/splunk enable boot-start -user splunk`
 - start splunk `/etc/init.d/splunk start`
 
-Verification
-------------
+## Verification
 Verify that THP is disabled:
 ```
 [splunk@splunk-mgt ~]$ cat /sys/kernel/mm/transparent_hugepage/defrag
@@ -74,30 +69,26 @@ Verify that Splunk is not complaining about ulimits:
 06-05-2018 19:44:01.122 +0200 INFO  ulimit - Linux vm.overcommit setting, value="0"
 ```
 
-Configuration Apps
-==================
+# Configuration Apps
 Apps are used as configuration bundles for the different instance roles in your environment.
 
-Master apps
+## Master apps
 -----------
 These apps are installed on the `cluster master` in `/opt/splunk/etc/master-apps` and pushed to all indexers.
 
 - `base_config_indexers`, configures: splunk-web, license master, inputs, volumes and indexes
 
 
-Search-head Apps
-----------------
+## Search-head Apps
 The search head apps are installed on the `deployer` in `/opt/splunk/etc/shcluster/apps` and pushed to all search-heads.
 
 - `xxx`:
 
-Deployment apps
----------------
+## Deployment apps
 Deployment apps are installed on the `deployment server` in `/opt/splunk/etc/deployment-apps` and pushed to all forwarders.
  
 - `base_config_forwarders`:
 
-Notes
-=====
+# Notes
 Instructions for the most common tasks are provided in the `notes/` directory.
 
