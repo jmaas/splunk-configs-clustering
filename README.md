@@ -1,6 +1,6 @@
 
 This repository contains several basic configuration files required
-by recent Splunk versions. Version used for testing is Splunk 8.0.2.1
+by recent Splunk versions. Version used for testing is Splunk 8.0.6.
 The instructions and files included in this repository allow you to 
 set-up a clustered environment relatively easy.
 
@@ -9,8 +9,8 @@ Reference Architecture
 This repository is based on an architecture I have running in my home lab.
 The references to the hostnames should be replaced with the equivalents in your environment.
 
-- 3x indexers (`splunk-idxN`)
-- 3x search head (`splunk-shN`)
+- 3x indexers cluster (`splunk-idxN`)
+- 1x single-node cluster search head (`splunk-shN`)
 - 1x universal forwarder (`splunk-ufN`)
 - 1x management server (`splunk-mgt`) with roles:
 	- license master
@@ -20,8 +20,7 @@ The references to the hostnames should be replaced with the equivalents in your 
 
 Manual Installation
 ===================
-Repeat all steps for every Splunk instance type in your architecture except for the Universal
-Forwarder instance (`splunk-ufN)`.
+Repeat all steps for every Splunk instance type in your architecture except for the Universal Forwarder instance (`splunk-ufN`).
 
 Splunk Enterprise
 -----------------
@@ -30,8 +29,11 @@ Splunk Enterprise
 - accept license and setup the admin account `$SPLUNK_HOME/bin/splunk start --accept-license` 
 - stop splunk `$SPLUNK_HOME/bin/splunk stop`
 
+Operating System
+----------------
+
 Systemd based systems
----------------------
++++++++++++++++++++++
 - copy `systemd/disable-thp.service` over to `/etc/systemd/system/`
 - copy `systemd/splunkd.service` over to `/etc/systemd/system/`
 - make sure you don't `enable boot-start`, just to be sure `rm -f /etc/init.d/splunk`
@@ -41,7 +43,7 @@ Systemd based systems
 - start splunk `systemctl start splunkd.service`
 
 Sysvinit based systems
-----------------------
+++++++++++++++++++++++
 - copy `sysvinit/99-splunk.conf` over to `/etc/security/limits.d/`
 - disable THP `echo sysvinit/rc.local >> /etc/rc.local`
 - start splunk on boot `/opt/splunk/bin/splunk enable boot-start -user splunk`
