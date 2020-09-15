@@ -76,18 +76,23 @@ Apps are used as configuration bundles for the different instance roles in your 
 ## Master apps
 These apps are installed on the `cluster master` in `/opt/splunk/etc/master-apps` and pushed to all indexers.
 
-- `base_config_indexers`, configures: splunk-web, license master, inputs, volumes and indexes
+- `cfg_base`: disables webserver in web.conf
+- `cfg_indexes`: custom indexes should be defined here, includes examples
+- `cfg_inputs`: enables the inputs on the indexers
+- `cfg_license`: configures the license client
 
 
 ## Search-head Apps
 The search head apps are installed on the `deployer` in `/opt/splunk/etc/shcluster/apps` and pushed to all search-heads.
 
-- `xxx`:
+- `cfg_outputs`: disables indexing on the SH and forwards data to the indexers
+- `cfg_license`: configures the license client
+
 
 ## Deployment apps
 Deployment apps are installed on the `deployment server` in `/opt/splunk/etc/deployment-apps` and pushed to all forwarders.
  
-- `base_config_forwarders`:
+- `TBD`:
 
 # Notes
 Instructions for the most common tasks are provided in the `notes/` directory.
