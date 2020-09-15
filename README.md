@@ -35,38 +35,39 @@ Repeat all steps for every Splunk instance type in your architecture except for 
 - reload systemd unit files from disk `systemctl daemon-reload`
 - enable the disable-thp service `systemctl enable disable-thp.service`
 - enable the splunkd service `systemctl enable splunkd.service`
+- start disable-thp `systemctl start disable-thp.service`
 - start splunk `systemctl start splunkd.service`
 
 ### Sysvinit based systems
 - copy `sysvinit/99-splunk.conf` over to `/etc/security/limits.d/`
-- disable THP `echo sysvinit/rc.local >> /etc/rc.local`
+- disable THP `cat sysvinit/rc.local >> /etc/rc.local`
 - start splunk on boot `/opt/splunk/bin/splunk enable boot-start -user splunk`
 - start splunk `/etc/init.d/splunk start`
 
 ## Verification
-Verify that THP is disabled:
+Verify that THP is disabled, please note that the output provided here is from CentOS 8.2.
 ```
 [splunk@splunk-mgt ~]$ cat /sys/kernel/mm/transparent_hugepage/defrag
-always madvise [never]
+always defer defer+madvise madvise [never]
 [splunk@splunk-mgt ~]$ cat /sys/kernel/mm/transparent_hugepage/enabled
 always madvise [never]
 ```
 
 Verify that Splunk is not complaining about ulimits:
 ```
-[splunk@splunk-mgt ~]$ grep limit /opt/splunk/var/log/splunk/splunkd.log | tail -n 12
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Limit: virtual address space size: unlimited
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Limit: data segment size: unlimited
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Limit: resident memory size: unlimited
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Limit: stack size: 8388608 bytes [hard maximum: unlimited]
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Limit: core file size: 0 bytes [hard maximum: unlimited]
-06-05-2018 19:44:01.122 +0200 WARN  ulimit - Core file generation disabled.
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Limit: data file size: unlimited
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Limit: open files: 64000 files
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Limit: user processes: 16000 processes
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Limit: cpu time: unlimited
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Linux transparent hugepage support, enabled="never" defrag="never"
-06-05-2018 19:44:01.122 +0200 INFO  ulimit - Linux vm.overcommit setting, value="0"
+[root@splunk-idx3 ~]# grep limit /opt/splunk/var/log/splunk/splunkd.log | tail -n 12
+09-15-2020 11:14:34.800 +0200 INFO  ulimit - Linux vm.overcommit setting, value="0"
+09-15-2020 11:23:24.781 +0200 INFO  ulimit - Limit: virtual address space size: unlimited
+09-15-2020 11:23:24.781 +0200 INFO  ulimit - Limit: data segment size: unlimited
+09-15-2020 11:23:24.781 +0200 INFO  ulimit - Limit: resident memory size: unlimited
+09-15-2020 11:23:24.781 +0200 INFO  ulimit - Limit: stack size: 8388608 bytes [hard maximum: unlimited]
+09-15-2020 11:23:24.781 +0200 INFO  ulimit - Limit: core file size: unlimited
+09-15-2020 11:23:24.781 +0200 INFO  ulimit - Limit: data file size: unlimited
+09-15-2020 11:23:24.781 +0200 INFO  ulimit - Limit: open files: 64000 files
+09-15-2020 11:23:24.781 +0200 INFO  ulimit - Limit: user processes: 16000 processes
+09-15-2020 11:23:24.781 +0200 INFO  ulimit - Limit: cpu time: unlimited
+09-15-2020 11:23:24.782 +0200 INFO  ulimit - Linux transparent hugepage support, enabled="never" defrag="never"
+09-15-2020 11:23:24.782 +0200 INFO  ulimit - Linux vm.overcommit setting, value="0"
 ```
 
 # Configuration Apps
