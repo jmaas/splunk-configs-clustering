@@ -1,5 +1,4 @@
-Setup Indexer Clustering
-========================
+# Setup Indexer Clustering
 
 References:
 - [Cluster Deployment Overview](https://docs.splunk.com/Documentation/Splunk/8.0.2/Indexer/Clusterdeploymentoverview)
@@ -14,8 +13,7 @@ Steps:
 3. Verify Status
 
 
-Enable Cluster Master
----------------------
+## Enable Cluster Master
 You can setup the cluster master by changing a configuration file or by using the CLI.
 These changes should be applied to the `splunk-mgt` instance from the reference architecture.
 
@@ -40,8 +38,7 @@ After applying the settings you need to restart Splunk:
 `systemctl restart splunkd` or `/etc/init.d/splunk restart`	 
 
 
-Enable Peer Nodes
------------------
+## Enable Peer Nodes
 All the indexer instances (`splunk-idxN`) from the reference architecture need to be configured to pair with with cluster master.
 This task can be accomplished by editing a configuration file or by using CLI commands.
 
@@ -63,8 +60,7 @@ After applying the settings you need to restart Splunk:
 `systemctl restart splunkd` or `/etc/init.d/splunk restart`
 
 
-Verify Status
--------------
+## Verify Status
 Some useful commands to verify the health and/or configuration of the indexer cluster:
 - splunk cluster commands: `splunk help cluster`
 - cluster health, run from the cluster master: `splunk show cluster-status`

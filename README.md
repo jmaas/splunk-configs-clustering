@@ -74,7 +74,6 @@ Verify that Splunk is not complaining about ulimits:
 Apps are used as configuration bundles for the different instance roles in your environment.
 
 ## Master apps
------------
 These apps are installed on the `cluster master` in `/opt/splunk/etc/master-apps` and pushed to all indexers.
 
 - `base_config_indexers`, configures: splunk-web, license master, inputs, volumes and indexes

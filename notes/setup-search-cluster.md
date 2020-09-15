@@ -1,5 +1,4 @@
-Setup Search Head Clustering
-============================
+# Setup Search Head Clustering
 
 References:
 - [Deploy a single-member search head cluster](https://docs.splunk.com/Documentation/Splunk/8.0.5/DistSearch/DeploysinglememberSHC)
@@ -14,8 +13,7 @@ Steps:
 5. Connecting To Indexer Cluster
 
 
-Setup Deployer
---------------
+## Setup Deployer
 The deployer is used for distributing apps and updated configurations to the cluster members.
 Within the reference architecture the deployer role is provided by the `splunk-mgt` instance.
 
@@ -33,8 +31,7 @@ After applying the settings you need to restart Splunk:
 `systemctl restart splunkd` or `/etc/init.d/splunk restart`
 
 
-Setup Cluster Members
----------------------
+## Setup Cluster Members
 This step should be performed on all search heads as refered to as `splunk-shN` in the reference architecture.
 
 Configure each search head to be a cluster member using the following `/opt/splunk/etc/system/local/server.conf` settings:
@@ -59,8 +56,7 @@ After applying the settings you need to restart Splunk:
 `systemctl restart splunkd` or `/etc/init.d/splunk restart`
 
 
-Setup Cluster Captain
----------------------
+## Setup Cluster Captain
 This section is not applicable for a single-node search head cluster.
 
 Select *one* of the initialized instances to be the cluster captain. It does not matter which instance you select for this role, but in this example the `splunk-sh1` will be used.
@@ -68,16 +64,14 @@ Select *one* of the initialized instances to be the cluster captain. It does not
 `splunk bootstrap shcluster-captain -servers_list "https://splunk-sh1:8089,https://splunk-sh2:8089,https://splunk-sh3:8089,https://splunk-shN:8089" -auth admin:password`
 
 
-Check Cluster Status
---------------------
+## Check Cluster Status
 Some useful commands to verify the health and/or configuration of the search head cluster:
 - cluster status: `splunk show shcluster-status`
 - cluster members: `splunk list shcluster-members`
 - kv store status: `splunk show kvstore-status`
 
 
-Connecting To Indexer Cluster
------------------------------
+## Connecting To Indexer Cluster
 The final step is to have all the search head cluster members connect to the index cluster so that we can actually start searching.
 This step should be performed on all search heads as refered to as `splunk-shN` in the reference architecture.
 

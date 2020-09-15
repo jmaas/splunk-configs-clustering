@@ -1,5 +1,4 @@
-Setup Universal Forwarder
-=========================
+# Setup Universal Forwarder
 
 References:
 - [Forwarder Manual](https://docs.splunk.com/Documentation/Forwarder/8.0.2/Forwarder/Configuretheuniversalforwarder)
@@ -13,8 +12,7 @@ Steps:
 4. Verify Status
 
 
-Installation
-------------
+## Installation
 This step documents the process of installing the Splunk Universal Forwarder software
 onto the designated instance within the reference architecture (`splunk-ufN`).
 
@@ -27,8 +25,7 @@ operational perspective, in this example I use the RPM package.
 ```
 
 
-Initial Configuration
----------------------
+## Initial Configuration
 For security purposes the agent should be run with least privilege, so never as root!
 Conveniently the  package install process automatically created a group and user named `splunk`. 
 
@@ -67,8 +64,7 @@ root      4303  0.0  0.1  12108  1124 pts/0    R+   10:43   0:00 grep --color=au
 ```
 
 
-Setup Central Management
-------------------------
+## Setup Central Management
 The goal here is to have the least amount of configuration on the Universal Forwarder
 endpoints and to have maximum control by leveraging the Remote Management capabilities. 
 
@@ -84,6 +80,5 @@ Configuration updated.
 ```
 
 
-Verify Status
--------------
+## Verify Status
 - Check the Forwarder Management section in the webinterface of the `splunk-mgt` instance, it should list the Universal Forwarder we've added.
