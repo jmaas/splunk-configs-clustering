@@ -45,6 +45,8 @@ mgmt_uri = https://splunk-sh1:8089
 pass4SymmKey = whatever
 replication_factor = 1
 shcluster_label = shcluster1
+# use only if you have a single-node search head cluster
+dynamic_election = 0
 ```
 
 Alternatively you can use the CLI to configure the search head cluster member:
