@@ -92,7 +92,7 @@ The search head apps are installed on the `deployer` in `/opt/splunk/etc/shclust
 ## Deployment apps
 Deployment apps are installed on the `deployment server` in `/opt/splunk/etc/deployment-apps` and pushed to all forwarders.
  
-- `TBD`:
+- `cfg_outputs`: setup forwarding to the indexers
 
 # Notes
 Instructions for the most common tasks are provided in the `notes/` directory.

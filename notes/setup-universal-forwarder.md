@@ -1,7 +1,7 @@
 # Setup Universal Forwarder
 
 References:
-- [Forwarder Manual](https://docs.splunk.com/Documentation/Forwarder/8.0.2/Forwarder/Configuretheuniversalforwarder)
+- [Forwarder Manual](https://docs.splunk.com/Documentation/Forwarder/8.0.6/Forwarder/Configuretheuniversalforwarder)
 - [Remote installation of the forwarder](http://docs.splunk.com/Documentation/Forwarder/latest/Forwarder/Installanixuniversalforwarderremotelywithastaticconfiguration)
 
 
