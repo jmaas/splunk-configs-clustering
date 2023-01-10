@@ -74,7 +74,7 @@ Verify that Splunk is not complaining about ulimits:
 Apps are used as configuration bundles for the different instance roles in your environment.
 
 ## Master apps
-These apps are installed on the `cluster master` in `/opt/splunk/etc/master-apps` and pushed to all indexers.
+These apps are installed on the `cluster master` in `/opt/splunk/etc/manager-apps` and pushed to all indexers.
 
 - `cfg_base`: disables webserver in web.conf
 - `cfg_indexes`: custom indexes should be defined here, includes examples
