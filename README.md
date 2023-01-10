@@ -1,6 +1,6 @@
 
 This repository contains several basic configuration files required
-by recent Splunk versions. Version used for testing is Splunk 8.0.6.
+by recent Splunk versions. Version used for testing is Splunk 9.0.0.
 The instructions and files included in this repository allow you to 
 set-up a clustered environment relatively easy.
 

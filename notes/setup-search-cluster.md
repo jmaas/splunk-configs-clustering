@@ -22,7 +22,11 @@ Important:
 
 Configure the deployer using the following `/opt/splunk/etc/system/local/server.conf` settings:
 ```
+[replication_port://34567]
+
 [shclustering]
+disabled = 0
+mgmt_uri = https://splunk-mgt:8089
 pass4SymmKey = whatever
 shcluster_label = shcluster1
 ```
@@ -64,7 +68,7 @@ After applying the settings you need to restart Splunk:
 ## Setup Cluster Captain
 This section is not applicable for a single-node search head cluster.
 
-Select *one* of the initialized instances to be the cluster captain. It does not matter which instance you select for this role, but in this example the `splunk-sh1` will be used.
+Select *one* of the initialized instances to be the cluster captain. It does not matter which instance you select for this role, but in this example the `splunk-sh1` will be used. Execute the command(s) from the soon to be cluster captain:
 
 `splunk bootstrap shcluster-captain -servers_list "https://splunk-sh1:8089,https://splunk-sh2:8089,https://splunk-sh3:8089,https://splunk-shN:8089" -auth admin:password`
 
